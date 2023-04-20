@@ -13,16 +13,14 @@ def play_round(computer_choice, player_choice):
             (player_choice == "Paper" and computer_choice == "Scissors") or \
             (player_choice == "Scissors" and computer_choice == "Rock"):
         result = "You Lose! " + computer_choice + " beats " + player_choice
-        print(result)
+        return result
     elif (player_choice == "Paper" and computer_choice == "Rock") or \
             (player_choice == "Scissors" and computer_choice == "Paper") or \
             (player_choice == "Rock" and computer_choice == "Scissors"):
         result = "You Win! " + player_choice + " beats " + computer_choice
-        print(result)
+        return result
     else:
         result = "It's a tie"
-        print(result)
+        return result
 
 
-computer_choice = get_computer_choice()
-play_round(computer_choice, "Rock")

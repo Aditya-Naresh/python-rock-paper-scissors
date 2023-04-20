@@ -1,4 +1,5 @@
 from tkinter import *
+from game_logic import *
 
 # create window
 window = Tk()
@@ -9,7 +10,6 @@ window.title("Rock Paper Scissor Game")
 # create label
 label = Label(window, text="Would you like to play Rock Paper Scissors?", font=("Arial", 22))
 label.grid(row=0, column=0, columnspan=2, padx=20, pady=20)
-
 
 # create entry widget
 name_label = Label(window, text="Enter your name", font=("Arial", 18))
@@ -22,9 +22,9 @@ yes_button = Button(window, text="Yes", font=("Arial", 18), command=lambda: yes_
 no_button = Button(window, text="No", font=("Arial", 18), command=lambda: window.destroy())
 
 # game buttons
-rock_button = Button(window, text="Rock", font=("Arial", 18))
-paper_button = Button(window, text="Paper", font=("Arial", 18))
-scissor_button = Button(window, text="Scissor", font=("Arial", 18))
+rock_button = Button(window, text="Rock", font=("Arial", 18), command=lambda: game_button("Rock"))
+paper_button = Button(window, text="Paper", font=("Arial", 18), command=lambda: game_button("Paper"))
+scissor_button = Button(window, text="Scissor", font=("Arial", 18), command=lambda: game_button("Scissor"))
 
 yes_button.grid(row=2, column=0, padx=20, pady=20)
 no_button.grid(row=2, column=1, padx=20, pady=20)
@@ -47,15 +47,27 @@ def yes_clicked():
 def get_player():
     global player_name
     player_name = insert_name.get()
-    player_score_label = Label(window, text=f'{player_name}: 0')
-    player_score_label.grid(row=0, column=100)
-    computer_score_label = Label(window, text='Computer: 0')
-    computer_score_label.grid(row=1, column=100)
     name_label.grid_forget()
     insert_name.grid_forget()
     rock_button.grid(row=4, column=0, padx=20, pady=20, columnspan=2)
     paper_button.grid(row=4, column=3, padx=20, pady=20, columnspan=2)
     scissor_button.grid(row=4, column=6, padx=20, pady=20, columnspan=2)
 
+
+player_choice = ""
+computer_choice = get_computer_choice()
+result = ''
+
+
+def game_button(value):
+    global player_choice
+    player_choice = value
+    global result
+    result = play_round(computer_choice, player_choice)
+    result_label.configure(text=result)
+
+
+result_label = Label(window, text=result)
+result_label.grid(row=20, column=6, padx=20, pady=20, columnspan=2)
 
 window.mainloop()
